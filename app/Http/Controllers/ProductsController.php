@@ -18,12 +18,15 @@ class ProductsController extends Controller
     {
         $products = Product::where('name', '=', $name)->first();
         $questions = Question::where('product_id', '=', $products->id)->get();
+        $questionData = [];
         $answers = [];
+        $cnt = 0;
         foreach ($questions as $question) {
+            array_push($questionData,[]);
             $answer = Answer::where('question_id', '=', $question->id)->get();
             array_push($answers, $answer);
         }
-        return view('product_testing_signup/product_testing_signup', ['products' => $products]);
+        return view('product_testing_signup/product_testing_signup', ['products' => $products, 'questions' => $questions, 'answers' => $answers]);
     }
 
     /**

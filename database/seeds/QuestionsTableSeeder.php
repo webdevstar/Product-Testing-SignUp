@@ -13,7 +13,7 @@ class QuestionsTableSeeder extends Seeder
     {
         DB::table('questions')->insert(array(
             ['product_id' => '1','question' => 'Which color is your favorite?',],
-            ['product_id' => '1','question' => 'Do You Own Beats Headphones?',],
+            ['product_id' => '1','question' => 'Do You currently own this product?',],
         ));
     }
 }
