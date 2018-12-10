@@ -2,6 +2,9 @@
 
 @section('style')
     <style type="text/css">
+        .checkmark-center {
+            text-align: center;
+        }
         .circle-loader {
           margin-bottom: 3.5em;
           border: 1px solid rgba(0, 0, 0, 0.2);
@@ -112,7 +115,7 @@
                 </div>
                 <div id="checkmarkBody" class="row question-body" style="display: none;">
                     <div class="col-md-12">
-                        <div class="justify-content-center">
+                        <div class="checkmark-center">
                             <div class="circle-loader">
                                 <div class="checkmark draw"></div>
                             </div>
