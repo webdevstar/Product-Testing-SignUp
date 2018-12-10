@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Product;
+use App\Question;
+use App\Answer;
 use Illuminate\Http\Request;
 
 class ProductsController extends Controller
@@ -14,8 +16,14 @@ class ProductsController extends Controller
      */
     public function index($name)
     {
-        $products = Product::where('name', '=', $name)->get();
-        echo $products;
+        $products = Product::where('name', '=', $name)->first();
+        $questions = Question::where('product_id', '=', $products->id)->get();
+        $answers = [];
+        foreach ($questions as $question) {
+            $answer = Answer::where('question_id', '=', $question->id)->get();
+            array_push($answers, $answer);
+        }
+        return view('product_testing_signup/product_testing_signup', ['products' => $products]);
     }
 
     /**
