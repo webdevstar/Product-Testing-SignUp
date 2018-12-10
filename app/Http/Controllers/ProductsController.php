@@ -19,14 +19,15 @@ class ProductsController extends Controller
         $products = Product::where('name', '=', $name)->first();
         $questions = Question::where('product_id', '=', $products->id)->get();
         $questionData = [];
-        $answers = [];
         $cnt = 0;
         foreach ($questions as $question) {
-            array_push($questionData,[]);
+            array_push($questionData,[$question]);
             $answer = Answer::where('question_id', '=', $question->id)->get();
-            array_push($answers, $answer);
+            array_push($questionData[$cnt], $answer);
+            $cnt++;
         }
-        return view('product_testing_signup/product_testing_signup', ['products' => $products, 'questions' => $questions, 'answers' => $answers]);
+        // echo $questionData[0][1];
+        return view('product_testing_signup/product_testing_signup', ['products' => $products, 'questionData' => $questionData]);
     }
 
     /**
