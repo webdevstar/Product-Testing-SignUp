@@ -12,7 +12,9 @@
 	                <div class="card-header">Product Register</div>
 
 	                <div class="card-body">
-	                    <form class="product-validation" novalidate>
+	                    <form class="product-validation" method="POST" action="/admin/products" novalidate>
+	                    	{{ csrf_field() }}
+							{{ method_field('POST') }}
                             <div class="form-group row">
 	                            <label for="productName" class="col-md-4 col-form-label text-md-right">Product Name</label>
 
@@ -49,7 +51,7 @@
 	                        <div class="form-group row mb-0">
 	                            <div class="col-md-6 offset-md-4">
 	                                <button id="productRegister" type="submit" class="btn btn-primary">
-	                                    {{ __('Register') }}
+	                                    Register
 	                                </button>
 	                            </div>
 	                        </div>
@@ -69,10 +71,7 @@
                     form.addEventListener('submit', function(event) {
                         event.preventDefault();
                         if (form.checkValidity() === true) {
-                            data['zipCode'] = $("#zipCode").val();
-                            $("#zipBody").hide();
-                            $("#zipBody").next().show();
-                            checkmark();
+                        	$(".product-validation").submit();
                         }
                         else {
                             event.stopPropagation();

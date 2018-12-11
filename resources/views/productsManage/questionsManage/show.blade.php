@@ -49,6 +49,7 @@
 			                        <?php $cnt++; ?>
 			                    @endforeach
 			                    <input id="answerCnt" name="answerCnt" type="hidden" value="{{ $cnt }}">
+			                    <input id="productId" name="productId" type="hidden" value="{{ $productID }}">
 			                </div>
 
 	                        <div class="form-group row mb-0">

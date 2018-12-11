@@ -39,7 +39,24 @@ class QuestionsController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newQuestion = $request->input('question');
+        $answerCnt = $request->input('answerCnt');
+        $productId = $request->input('productId');
+
+        $question = new Question;
+        $question->product_id = $productId;
+        $question->question = $newQuestion;
+        $question->save();
+
+        for($i=0;$i<$answerCnt;$i++){
+            $newAnswer = $request->input('answer'.$i);
+            $answer = new Answer;
+            $answer->question_id = $question->id;
+            $answer->answer = $newAnswer;
+            $answer->save();
+        }
+
+        return redirect('/admin/products');
     }
 
     /**
@@ -78,6 +95,7 @@ class QuestionsController extends Controller
     {
         $newQuestion = $request->input('question');
         $cnt = $request->input('answerCnt');
+        $productId = $request->input('productId');
 
         $lastAnswers = Question::find($id)->answers;
         foreach ($lastAnswers as $lastAnswer) {
@@ -95,7 +113,7 @@ class QuestionsController extends Controller
         $question->question = $newQuestion;
         $question->save();
 
-        return redirect('/admin/products/questions/'.$id);
+        return redirect('/admin/products/questions/'.$id.'?productID='.$productId);
     }
 
     /**

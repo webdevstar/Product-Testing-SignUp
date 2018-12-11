@@ -9,6 +9,9 @@
         .productShow {
             cursor: pointer;
         }
+        #productAdd {
+        	margin-bottom: 10px;
+        }
     </style>
 @endsection
 
@@ -16,6 +19,7 @@
 	<div class="container">
 	    <div class="row">
 	        <div class="col-md-12">
+	        	<button id="productAdd" type="button" class="btn btn-primary float-right">Add</button>
 	        	<table class="table table-striped table-hover">
 					<thead>
 						<tr>
@@ -47,6 +51,9 @@
         		var productId = $(this).attr('productId');
         		location.href = '/admin/products/'+productId;
         	})
+        	$("#productAdd").click(function(){
+        		location.href = '/admin/products/create';
+        	});
         });
     </script>
 @endsection

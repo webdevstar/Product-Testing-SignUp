@@ -41,7 +41,19 @@ class HomeController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $newProductName = $request->input('productName');
+        $newProductImage = $request->input('productImage');
+        $newProductTitle = $request->input('productTitle');
+
+        $product = new Product;
+        $product->name = $newProductName;
+        $product->image = $newProductImage;
+        $product->title = $newProductTitle;
+        $product->save();
+
+        $latestId = $product->id;
+
+        return view('productsManage/questionsManage/create', ['id' => $latestId]);
     }
 
     /**
