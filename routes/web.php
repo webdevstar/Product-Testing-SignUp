@@ -11,6 +11,6 @@
 |
 */
 
-Route::get('/{name}', 'ProductsController@index');
-
-Auth::routes();
+Route::resource('/admin/products', 'ProductsManage\HomeController');
+Route::resource('/admin/products/questions', 'ProductsManage\QuestionsController');
+Route::get('/{name}', 'ProductsTest\ProductsTestController@index');

@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\Answer;
 
 class AnswersTableSeeder extends Seeder
 {
@@ -11,15 +12,37 @@ class AnswersTableSeeder extends Seeder
      */
     public function run()
     {
-        DB::table('answers')->insert(array(
-            ['question_id' => '1','answer' => 'Black',],
-            ['question_id' => '1','answer' => 'White',],
-            ['question_id' => '1','answer' => 'Red',],
-            ['question_id' => '1','answer' => 'Gold',],
-            ['question_id' => '1','answer' => 'Other',],
-            ['question_id' => '2','answer' => 'Yes of Course',],
-            ['question_id' => '2','answer' => 'No but I used too',],
-            ['question_id' => '2','answer' => 'No they are too expensive',],
+        Answer::create(array(
+            'question_id' => '1',
+            'answer' => 'Black',
+        ));
+        Answer::create(array(
+            'question_id' => '1',
+            'answer' => 'White',
+        ));
+        Answer::create(array(
+            'question_id' => '1',
+            'answer' => 'Red',
+        ));
+        Answer::create(array(
+            'question_id' => '1',
+            'answer' => 'Gold',
+        ));
+        Answer::create(array(
+            'question_id' => '1',
+            'answer' => 'Other',
+        ));
+        Answer::create(array(
+            'question_id' => '2',
+            'answer' => 'Yes of Course',
+        ));
+        Answer::create(array(
+            'question_id' => '2',
+            'answer' => 'No but I used too',
+        ));
+        Answer::create(array(
+            'question_id' => '2',
+            'answer' => 'No they are too expensive',
         ));
     }
 }

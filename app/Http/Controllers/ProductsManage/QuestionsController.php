@@ -1,34 +1,24 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\ProductsManage;
 
 use App\Product;
 use App\Question;
 use App\Answer;
-use Illuminate\Http\Request;
 
-class ProductsController extends Controller
+use Illuminate\Http\Request;
+use App\Http\Controllers\Controller;
+
+class QuestionsController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
      * @return \Illuminate\Http\Response
      */
-    public function index($name)
+    public function index()
     {
-        $products = Product::where('name', '=', $name)->first();
-        $comments = Product::find($products->id)->questions;
-        var_dump($comments);
-        $questions = Question::where('product_id', '=', $products->id)->get();
-        $questionData = [];
-        $cnt = 0;
-        foreach ($questions as $question) {
-            array_push($questionData,[$question]);
-            $answer = Answer::where('question_id', '=', $question->id)->get();
-            array_push($questionData[$cnt], $answer);
-            $cnt++;
-        }
-        return view('product_testing_signup/product_testing_signup', ['products' => $products, 'questionData' => $questionData]);
+        //
     }
 
     /**
@@ -60,7 +50,10 @@ class ProductsController extends Controller
      */
     public function show($id)
     {
-        //
+        $question = Question::find($id);
+        $answers = Question::find($id)->answers;
+        $productID = $_GET['productID'];
+        return view('productsManage/questionsManage/show', ['question' => $question, 'answers' => $answers, 'productID' => $productID]);
     }
 
     /**
@@ -83,7 +76,26 @@ class ProductsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $newQuestion = $request->input('question');
+        $cnt = $request->input('answerCnt');
+
+        $lastAnswers = Question::find($id)->answers;
+        foreach ($lastAnswers as $lastAnswer) {
+            $lastAnswer->delete();
+        }
+        for($i=0;$i<$cnt;$i++){
+            $newAnswer = $request->input('answer'.$i);
+            $answer = new Answer;
+            $answer->question_id = $id;
+            $answer->answer = $newAnswer;
+            $answer->save();
+        }
+
+        $question = Question::find($id);
+        $question->question = $newQuestion;
+        $question->save();
+
+        return redirect('/admin/products/questions/'.$id);
     }
 
     /**
