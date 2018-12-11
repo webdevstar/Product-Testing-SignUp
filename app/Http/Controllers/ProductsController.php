@@ -17,6 +17,8 @@ class ProductsController extends Controller
     public function index($name)
     {
         $products = Product::where('name', '=', $name)->first();
+        $comments = Product::find($products->id)->questions;
+        var_dump($comments);
         $questions = Question::where('product_id', '=', $products->id)->get();
         $questionData = [];
         $cnt = 0;
@@ -26,7 +28,6 @@ class ProductsController extends Controller
             array_push($questionData[$cnt], $answer);
             $cnt++;
         }
-        // echo $questionData[0][1];
         return view('product_testing_signup/product_testing_signup', ['products' => $products, 'questionData' => $questionData]);
     }
 

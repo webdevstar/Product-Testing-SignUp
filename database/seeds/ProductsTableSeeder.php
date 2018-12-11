@@ -14,6 +14,7 @@ class ProductsTableSeeder extends Seeder
         DB::table('products')->insert(array(
             'name' => 'iPhone',
             'image' => 'https://im.d-promo.com/upload/1531500133_Beats_3_Red_2.png',
+            'title' => 'Testers wanted for iPhone',
         ));
     }
 }
