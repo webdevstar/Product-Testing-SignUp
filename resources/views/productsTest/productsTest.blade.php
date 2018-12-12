@@ -114,7 +114,7 @@
                                 <div class="input-group mb-3">
                                     <input id="zipCode" type="text" class="form-control" placeholder="ZIP code" aria-label="ZIP code" pattern="\d*" maxlength="5" required>
                                     <div class="input-group-append">
-                                        <button class="btn btn-outline-secondary" id="zipNext">NEXT</button>
+                                        <button class="btn btn-outline-primary" id="zipNext">NEXT</button>
                                     </div>
                                     <div class="invalid-feedback">
                                         Please provide a exact valid ZIP code.
