@@ -13,6 +13,21 @@ class ProductsTestController extends Controller
 {
     public function index($name)
     {
+        $months = array(
+            'January',
+            'February',
+            'March',
+            'April',
+            'May',
+            'June',
+            'July ',
+            'August',
+            'September',
+            'October',
+            'November',
+            'December',
+        );
+        $currentYear = date("Y");
         $products = Product::where('name', '=', $name)->first();
         if(isset($products)){
             $questions = Product::find($products->id)->questions;
@@ -26,7 +41,7 @@ class ProductsTestController extends Controller
                 $cnt++;
             }
 
-            return view('productsTest/productsTest', ['products' => $products, 'questionData' => $questionData]);
+            return view('productsTest/productsTest', ['products' => $products, 'questionData' => $questionData, 'months' => $months, 'currentYear' => $currentYear]);
         }
         else echo "product none!";
     }

@@ -112,12 +112,12 @@
                         <div class="col-md-12">
                             <form class="zip-validation" novalidate>
                                 <div class="input-group mb-3">
-                                    <input id="zipCode" type="text" class="form-control" placeholder="ZIP code" aria-label="ZIP code" aria-describedby="button-addon2" maxlength="5" required>
+                                    <input id="zipCode" type="text" class="form-control" placeholder="ZIP code" aria-label="ZIP code" pattern="\d*" maxlength="5" required>
                                     <div class="input-group-append">
                                         <button class="btn btn-outline-secondary" id="zipNext">NEXT</button>
                                     </div>
                                     <div class="invalid-feedback">
-                                        Please provide a valid ZIP code.
+                                        Please provide a exact valid ZIP code.
                                     </div>
                                 </div>
                             </form>
@@ -152,19 +152,25 @@
                                     <div class="col-md-4 mb-3">
                                         <select class="custom-select my-1 mr-sm-2" id="month" required>
                                             <option value="">MM</option>
-                                            <option value="1">January</option>
+                                            @foreach($months as $month)
+                                                <option value="1">{{ $month }}</option>
+                                            @endforeach
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <select class="custom-select my-1 mr-sm-2" id="day" required>
                                             <option value="">DD</option>
-                                            <option value="1">January</option>
+                                            @for($i=1;$i<=31;$i++)
+                                                <option value="1">{{ $i }}</option>
+                                            @endfor
                                         </select>
                                     </div>
                                     <div class="col-md-4 mb-3">
                                         <select class="custom-select my-1 mr-sm-2" id="year" required>
                                             <option value="">YYYY</option>
-                                            <option value="1">January</option>
+                                            @for($i=$currentYear; $i>=1928; $i--)
+                                                <option value="1">{{ $i }}</option>
+                                            @endfor
                                         </select>
                                     </div>
                                 </div>
