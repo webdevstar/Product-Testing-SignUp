@@ -40,11 +40,14 @@
 
 	                        <div class="form-group row mb-0">
 	                            <div class="col-md-6 offset-md-4">
-	                                <button id="addMore" type="button" class="btn btn-primary">
+	                                <button id="addMore" type="button" class="btn btn-outline-primary">
 	                                    Add more
 	                                </button>
-	                                <button id="questionRegister" type="submit" class="btn btn-primary">
+	                                <button id="questionRegister" type="submit" class="btn btn-outline-primary">
 	                                    Register
+	                                </button>
+	                                <button id="goBack" type="button" class="btn btn-outline-info">
+	                                    Back
 	                                </button>
 	                            </div>
 	                        </div>
@@ -61,6 +64,9 @@
 	<script type="text/javascript">
         var answerCnt = 1;
         $(document).ready(function(){
+        	$("#goBack").click(function(){
+            	location.href = '/admin/products/{{ $id }}';
+            });
             $("#questionRegister").click(function(){
                 var question_forms = document.getElementsByClassName('question-validation');
                 var question_validation = Array.prototype.filter.call(question_forms, function(form) {

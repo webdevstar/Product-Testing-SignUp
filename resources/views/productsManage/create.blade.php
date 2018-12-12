@@ -50,8 +50,11 @@
 
 	                        <div class="form-group row mb-0">
 	                            <div class="col-md-6 offset-md-4">
-	                                <button id="productRegister" type="submit" class="btn btn-primary">
+	                                <button id="productRegister" type="submit" class="btn btn-outline-primary">
 	                                    Register
+	                                </button>
+	                                <button id="goBack" type="button" class="btn btn-outline-info">
+	                                    Back
 	                                </button>
 	                            </div>
 	                        </div>
@@ -65,6 +68,9 @@
 	<script type="text/javascript">
         var data = {};
         $(document).ready(function(){
+        	$("#goBack").click(function(){
+            	location.href = '/admin/products';
+            });
             $("#productRegister").click(function(){
                 var product_forms = document.getElementsByClassName('product-validation');
                 var product_validation = Array.prototype.filter.call(product_forms, function(form) {

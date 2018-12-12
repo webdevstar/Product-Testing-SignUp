@@ -28,7 +28,8 @@ class QuestionsController extends Controller
      */
     public function create()
     {
-        //
+        $productID = $_GET['productID'];
+        return view('productsManage/questionsManage/create', ['id' => $productID]);
     }
 
     /**
@@ -56,7 +57,7 @@ class QuestionsController extends Controller
             $answer->save();
         }
 
-        return redirect('/admin/products');
+        return redirect('/admin/products/'.$productId);
     }
 
     /**
@@ -103,10 +104,12 @@ class QuestionsController extends Controller
         }
         for($i=0;$i<$cnt;$i++){
             $newAnswer = $request->input('answer'.$i);
-            $answer = new Answer;
-            $answer->question_id = $id;
-            $answer->answer = $newAnswer;
-            $answer->save();
+            if(isset($newAnswer)){
+                $answer = new Answer;
+                $answer->question_id = $id;
+                $answer->answer = $newAnswer;
+                $answer->save();
+            }
         }
 
         $question = Question::find($id);
@@ -124,6 +127,8 @@ class QuestionsController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $productID = $_GET['productID'];
+        Question::destroy($id);
+        return redirect('/admin/products/'.$productID);
     }
 }

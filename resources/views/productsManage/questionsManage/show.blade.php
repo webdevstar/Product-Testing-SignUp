@@ -23,7 +23,7 @@
                             <div class="form-group row">
 	                            <label for="question" class="col-md-4 col-form-label text-md-right">Question</label>
 
-	                            <div class="col-md-6">
+	                            <div class="col-md-5">
 	                                <input id="question" type="text" class="form-control" name="question" required autofocus value="{{ $question->question }}">
 	                                <div class="invalid-feedback">
                                         Please provide a valid question.
@@ -34,16 +34,19 @@
 	                        <div class="answers">
 	                        	<?php $cnt = 0; ?>
 		                        @foreach($answers as $answer)
-			                        <div class="form-group row">
+			                        <div class="form-group row" id="answer{{ $cnt }}">
 			                        	<label for="answer" class="col-md-4 col-form-label text-md-right">
 			                        		@if($cnt === 0){{ "Answers" }}
 			                        		@endif
 			                        	</label>
-			                            <div class="col-md-6">
+			                            <div class="col-md-5">
 			                                <input type="text" class="form-control" name="answer{{ $cnt }}" required autofocus value="{{ $answer->answer }}">
 			                                <div class="invalid-feedback">
 		                                        Please provide a valid answer.
 		                                    </div>
+			                            </div>
+			                            <div class="col-md-3">
+											<button type="button" class="btn btn-outline-danger delete" answerCnt="{{ $cnt }}"">delete</button>
 			                            </div>
 			                        </div>
 			                        <?php $cnt++; ?>
@@ -54,13 +57,13 @@
 
 	                        <div class="form-group row mb-0">
 	                            <div class="col-md-6 offset-md-4">
-	                            	<button id="questionAdd" type="button" class="btn btn-primary">
-	                                    Add
+	                            	<button id="questionAdd" type="button" class="btn btn-outline-primary">
+	                                    Add more
 	                                </button>
-	                                <button id="questionRegister" type="submit" class="btn btn-primary" disabled="true">
+	                                <button id="questionRegister" type="submit" class="btn btn-outline-primary" disabled="true">
 	                                    Register
 	                                </button>
-	                                <button id="goBack" type="button" class="btn btn-primary">
+	                                <button id="goBack" type="button" class="btn btn-outline-info">
 	                                    Back
 	                                </button>
 	                            </div>
@@ -77,17 +80,27 @@
         	var answerCnt = $("#answerCnt").val();
         	$("#questionAdd").click(function(){
         		$("#questionRegister").removeAttr("disabled");
-        		$(".answers").append('<div class="form-group row">'+
+        		$(".answers").append('<div id="answer'+answerCnt+'" class="form-group row">'+
 				                        	'<label for="answer" class="col-md-4 col-form-label text-md-right"></label>'+
-				                            '<div class="col-md-6">'+
+				                            '<div class="col-md-5">'+
 				                                '<input type="text" class="form-control" name="answer'+answerCnt+'" required autofocus>'+
 				                                '<div class="invalid-feedback">'+
 			                                        'Please provide a valid answer.'+
 			                                    '</div>'+
 				                            '</div>'+
+				                            '<div class="col-md-3">'+
+												'<button type="button" class="btn btn-outline-danger delete" answerCnt="'+answerCnt+'">delete</button>'+
+				                            '</div>'+
 				                    '</div>');
         		answerCnt++;
         		$("#answerCnt").val(answerCnt);
+        		$('.delete').confirmation({
+		        	onConfirm: function() {
+		        		$("#questionRegister").removeAttr("disabled");
+		        		var id = $(this).attr('answerCnt');
+		        		$("#answer"+id).remove();
+		        	}
+		        });
         	});
         	$(".question-validation input").on("change paste keyup", function(){
         		$("#questionRegister").removeAttr("disabled");
@@ -114,6 +127,13 @@
                     }, false);
                 });
             });
+            $('.delete').confirmation({
+	        	onConfirm: function() {
+	        		$("#questionRegister").removeAttr("disabled");
+	        		var id = $(this).attr('answerCnt');
+	        		$("#answer"+id).remove();
+	        	}
+	        });
         });
     </script>
 @endsection

@@ -89,7 +89,7 @@
     <div class="container">
         <div class="row">
             <div class="col-md-6">
-                <img src="{{ $products->image }}" class="img-fluid animated animated bounceInLeft" alt="product">
+                <img src="{{ $products->image }}" class="img-fluid mx-auto d-block animated bounceInLeft" alt="product">
             </div>
             <div class="col-md-6">
                 <div class="container-fluid animated bounceInRight">

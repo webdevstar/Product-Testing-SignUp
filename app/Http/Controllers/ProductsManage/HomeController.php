@@ -111,6 +111,7 @@ class HomeController extends Controller
      */
     public function destroy($id)
     {
-        //
+        Product::destroy($id);
+        return redirect('/admin/products');
     }
 }

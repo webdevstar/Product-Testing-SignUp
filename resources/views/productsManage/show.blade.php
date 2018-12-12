@@ -12,6 +12,9 @@
 		.questionShow {
 			cursor: pointer;
 		}
+		#questionAdd {
+        	margin-bottom: 10px;
+        }
 	</style>
 @endsection
 
@@ -20,7 +23,7 @@
 	    <div class="row justify-content-center">
 	        <div class="col-md-8">
 	            <div class="card">
-	                <div class="card-header">{{ $product->name }}</div>
+	                <div class="card-header">Product</div>
 
 	                <div class="card-body">
 	                    <form class="product-validation" method="POST" action="/admin/products/{{ $product->id }}" novalidate>
@@ -61,10 +64,10 @@
 
 	                        <div class="form-group row mb-0">
 	                            <div class="col-md-6 offset-md-4">
-	                                <button id="productRegister" type="submit" class="btn btn-primary" disabled="true">
+	                                <button id="productRegister" type="submit" class="btn btn-outline-primary" disabled="true">
 	                                    Register
 	                                </button>
-	                                <button id="goBack" type="button" class="btn btn-primary">
+	                                <button id="goBack" type="button" class="btn btn-outline-info">
 	                                    Back
 	                                </button>
 	                            </div>
@@ -81,11 +84,13 @@
 	                <div class="card-header">Questions</div>
 
 	                <div class="card-body">
+	                	<button id="questionAdd" type="button" class="btn btn-outline-primary float-right">Add</button>
 	                	<table class="table table-striped table-hover">
 							<thead>
 								<tr>
 									<th scope="col">#</th>
 									<th scope="col">Question</th>
+									<th scope="col"></th>
 								</tr>
 							</thead>
 							<tbody>
@@ -94,6 +99,13 @@
 									<tr class="questionShow" questionId="{{ $question->id }}">
 										<th scope="row">{{ $cnt }}</th>
 										<td>{{ $question->question }}</td>
+										<td>
+											<form method="POST" action="/admin/products/questions/{{ $question->id }}?productID={{ $id }}">
+												{{ csrf_field() }}
+												{{ method_field('DELETE') }}
+												<button type="button" class="btn btn-outline-danger delete">delete</button>
+											</form>
+										</td>
 									</tr>
 									<?php $cnt++ ?>
 								@endforeach
@@ -107,6 +119,13 @@
 	<script type="text/javascript">
         var data = {};
         $(document).ready(function(){
+        	var questionShow = 0;
+        	$('.delete').confirmation({
+	        	onConfirm: function() {
+	        		questionShow = 1;
+	        		$(this).parents().submit();
+	        	}
+	        });
         	$(".product-validation input").on("change paste keyup", function(){
         		$("#productRegister").removeAttr("disabled")
         	});
@@ -114,11 +133,17 @@
             	location.href = '/admin/products';
             });
             $(".questionShow").click(function(){
-        		var questionId = $(this).attr('questionId');
-        		location.href = '/admin/products/questions/'+questionId+'?productID={{ $id }}';
+            	if(questionShow === 0){
+	        		var questionId = $(this).attr('questionId');
+        			location.href = '/admin/products/questions/'+questionId+'?productID={{ $id }}';
+	        	}
+	        	questionShow = 0;
         	})
         	$("#productRegister").click(function(){
         		$(".product-validation").submit();
+        	});
+        	$("#questionAdd").click(function(){
+        		location.href = '/admin/products/questions/create?productID={{ $id }}';
         	});
         });
     </script>
